@@ -10,15 +10,15 @@ from sqlmodel import Session
 from passlib.context import CryptContext
 from sqlmodel import Session, select
 
-from signable import database as db
-from signable.entities.database_entities import Users
+import database as db
+from entities.database_entities import Users
 
 import smtplib
 from email.message import EmailMessage
 import ssl
 
-from signable import database as db
-from signable.entities.user_entities import (
+import database as db
+from entities.user_entities import (
     DateResponse,
     PermissionsResponse,
     ProgressResponse,
@@ -298,7 +298,7 @@ def request_recovery(username: str, session: Session = Depends(db.get_session)):
 def send_otp_email(otp: str, user: Users):
     try:
         if (user):
-            sender = "signable.app@gmail.com"
+            sender = "app@gmail.com"
             password = "cabw cney iqnt souc"
             message = f"If you didn't request to reset your password, please ignore this email. Here's your one time password: {otp}."
 

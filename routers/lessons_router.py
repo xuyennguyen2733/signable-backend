@@ -4,8 +4,8 @@ import random as rand
 
 from fastapi import APIRouter, Depends
 
-from signable import database as db
-from signable.entities.lesson_entities import (
+import database as db
+from entities.lesson_entities import (
     LessonResponse,
     CameraQuestionResponse,   
     WatchToLearnQuestionResponse,   
@@ -17,7 +17,7 @@ from signable.entities.lesson_entities import (
     LessonCollection,
     QuestionCollection,
 )
-from signable.entities.database_entities import LessonType, QuestionType
+from entities.database_entities import LessonType, QuestionType
 
 lessons_router = APIRouter(prefix="/units", tags=["Units"])
 

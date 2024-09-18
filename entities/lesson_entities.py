@@ -3,8 +3,8 @@ from sqlmodel import SQLModel
 
 from typing import List, Union
 
-from signable.entities.resource_entities import Metadata
-from signable.entities.database_entities import LessonType, QuestionType
+from entities.resource_entities import Metadata
+from entities.database_entities import LessonType, QuestionType
 
 ##                  ##
 ##      Models      ##

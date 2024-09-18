@@ -6,11 +6,11 @@
 from fastapi import APIRouter, Depends
 from sqlmodel import Session
 
-from signable import database as db
-from signable.routers.users_router import get_current_user
+import database as db
+from routers.users_router import get_current_user
 
-from signable.entities.database_entities import QuestionType, Users
-from signable.entities.lesson_entities import (
+from entities.database_entities import QuestionType, Users
+from entities.lesson_entities import (
     AddCameraQuestion,
     AddFillInTheBlankQuestion,
     AddLesson,

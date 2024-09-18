@@ -8,7 +8,7 @@ from sqlmodel import Session
 from passlib.hash import bcrypt
 
 from database import *
-from signable.entities.database_entities import (
+from entities.database_entities import (
     Users,
     Friends,
     Units,

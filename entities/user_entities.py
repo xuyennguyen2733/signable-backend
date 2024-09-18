@@ -4,7 +4,7 @@ from pydantic import BaseModel
 from sqlmodel import SQLModel
 from typing import Optional
 
-from signable.entities.resource_entities import Metadata
+from entities.resource_entities import Metadata
 
 ##                  ##
 ##      Models      ##

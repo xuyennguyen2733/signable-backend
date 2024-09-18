@@ -11,7 +11,7 @@ from sqlmodel import (
     select
 )
 
-from signable.entities.lesson_entities import (
+from entities.lesson_entities import (
     AddCameraQuestion, 
     AddFillInTheBlankQuestion, 
     AddLesson, AddMatchingQuestion, 
@@ -25,8 +25,8 @@ from signable.entities.lesson_entities import (
     UpdateSign, 
 )
 
-from signable.entities.user_entities import ProgressUpdate, XpResponse, UserRegistration, UserUpdate
-from signable.entities.database_entities import (
+from entities.user_entities import ProgressUpdate, XpResponse, UserRegistration, UserUpdate
+from entities.database_entities import (
     QuestionType,
     UserXP,
     Users,
@@ -78,7 +78,7 @@ if os.environ.get("PROD", "False") == "True":
     engine = create_engine(db_uri)
 else: 
     engine = create_engine(
-        "sqlite:///signable/testing_db.db",
+        "sqlite:///testing_db.db",
         echo=False,
         connect_args={"check_same_thread": False,},
     )

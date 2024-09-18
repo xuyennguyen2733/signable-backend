@@ -6,11 +6,11 @@ from fastapi import Depends, FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, HTMLResponse
 
-from signable.routers.admin_router import admin_router
-from signable.routers.users_router import users_router
-from signable.routers.lessons_router import lessons_router
-from signable.database import create_database
-from signable.database import (
+from routers.admin_router import admin_router
+from routers.users_router import users_router
+from routers.lessons_router import lessons_router
+from database import create_database
+from database import (
    EntityNotFoundException,
    UnrelatedEntitiesException,
    InvalidRequestExcpetion,
@@ -36,8 +36,8 @@ app.add_middleware(
     allow_origins=[
        "http://localhost:5173",
        "http://localhost:5174",
-       "https://signable.tv",
-       "https://www.signable.tv",
+       "https://tv",
+       "https://www.tv",
     ],
     allow_credentials=True,
     allow_methods=["*"],
