@@ -1,0 +1,131 @@
+1. Prepare:
+- Your main.py should be in the top folder and include the variable `lambda_handler=Mangum(app)`
+- a requirements.txt file with all packages needed for your project
+
+2. In the terminal
+
+RUN python -m pip install -r requirements.txt -t dependencies --platform manylinux2014_x86_64 --only-binary=:all:
+
+=> This will create a dependencies folder with all the needed packages
+
+3a. (Mac or linux) In the terminal
+
+RUN (cd dependencies; zip ../aws_lambda_artifact.zip -r .)
+
+3b. (Windows) In a powershell terminal
+
+RUN Set-Location -Path .\dependencies
+Compress-Archive -Path * -DestinationPath ..\aws_lambda_artifact.zip
+Set-Location -Path ..
+
+=> this create a zip file of an aws lambda artifact containing all dependencies
+
+4a. (Mac or linux) In the terminal
+
+RUN (zip aws_lambda_artifact.zip -u main.py)
+
+4b. (Windows) In a powershell terminal
+
+RUN Compress-Archive -Path "main.py" -Update -DestinationPath "aws_lambda_artifact.zip"
+
+
+=> this updates the zipped lambda artifact to include main.py
+
+- Repeat to add any other dependencies like database.py, routers folder, etc. that you created
+
+- To make sure you did everything correctly, unzip aws_lambda_artifact.zip and run the project from there. If it works like it normally would running your original project, you should be good to go.
+
+5. Create an AWS Console account (Refer to this document if needed: https://docs.google.com/document/d/1jdjdhFk1YZi8QT7n6qiUWh86Ur0cUGcEnSmbQh-G1-E/edit)
+
+6. In AWS
+
+- Search lambda
+- Click create a function
+- Select the following settings:
+
+    Author from scratch
+    Function name: [give any name]
+    Runtime: appropriate python (3.11 for this project)
+    Advance Settings: Enable function URL
+    Auth type: None
+    
+- Everything else should be left as default
+=> Hit Create function
+
+- After the function is created, you will be given a link where clicking it will return "Hello from Lambda!"
+
+- Click upload from > zip file, and select the aws_lambda_artifact.zip file (if file larger than 50 MB, will need to use another method)
+
+- After uploading, scroll to Runtime -> click edit
+- Change the handler to 'main.lambda_handler'
+
+7. Test connection:
+
+In the tab test, replace the Event JSON console with this:
+
+{
+  "resource": "/",
+  "path": "/",
+  "httpMethod": "POST",
+  "headers": {
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept-Language": "en-GB,en-US;q=0.8,en;q=0.6,zh-CN;q=0.4",
+    "cache-control": "max-age=0",
+    "CloudFront-Forwarded-Proto": "https",
+    "CloudFront-Is-Desktop-Viewer": "true",
+    "CloudFront-Is-Mobile-Viewer": "false",
+    "CloudFront-Is-SmartTV-Viewer": "false",
+    "CloudFront-Is-Tablet-Viewer": "false",
+    "CloudFront-Viewer-Country": "GB",
+    "content-type": "application/x-www-form-urlencoded",
+    "Host": "j3ap25j034.execute-api.eu-west-2.amazonaws.com",
+    "origin": "https://j3ap25j034.execute-api.eu-west-2.amazonaws.com",
+    "Referer": "https://j3ap25j034.execute-api.eu-west-2.amazonaws.com/dev/",
+    "upgrade-insecure-requests": "1",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36",
+    "Via": "2.0 a3650115c5e21e2b5d133ce84464bea3.cloudfront.net (CloudFront)",
+    "X-Amz-Cf-Id": "0nDeiXnReyHYCkv8cc150MWCFCLFPbJoTs1mexDuKe2WJwK5ANgv2A==",
+    "X-Amzn-Trace-Id": "Root=1-597079de-75fec8453f6fd4812414a4cd",
+    "X-Forwarded-For": "50.129.117.14, 50.112.234.94",
+    "X-Forwarded-Port": "443",
+    "X-Forwarded-Proto": "https"
+  },
+  "queryStringParameters": null,
+  "pathParameters": null,
+  "stageVariables": null,
+  "requestContext": {
+    "path": "/dev/",
+    "accountId": "125002137610",
+    "resourceId": "qdolsr1yhk",
+    "stage": "dev",
+    "requestId": "0f2431a2-6d2f-11e7-b799-5152aa497861",
+    "identity": {
+      "cognitoIdentityPoolId": null,
+      "accountId": null,
+      "cognitoIdentityId": null,
+      "caller": null,
+      "apiKey": "",
+      "sourceIp": "50.129.117.14",
+      "accessKey": null,
+      "cognitoAuthenticationType": null,
+      "cognitoAuthenticationProvider": null,
+      "userArn": null,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36",
+      "user": null
+    },
+    "resourcePath": "/",
+    "httpMethod": "POST",
+    "apiId": "j3azlsj0c4"
+  },
+  "body": "postcode=LS17FR",
+  "isBase64Encoded": false
+}
+
+Then run the test.
+
+8. Optional:
+
+Create a new role in IAM for Lambda use. Add the first result found for searching 'basic'; repeat for 'xrayd'.
+
+Use this role when creating lambda functions

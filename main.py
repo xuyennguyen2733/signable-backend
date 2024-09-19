@@ -150,6 +150,15 @@ def handle_duplicates(
    )
 
 
-# let aws know how to run the app
-if os.environ.get("DEV", "False") != "True":
-   lambda_handler = Mangum(app)
+lambda_handler = Mangum(app)
+
+# from mangum import Mangum
+# from fastapi import FastAPI 
+
+# app = FastAPI()
+
+# @app.get("/")
+# def read_root():
+#     return {"Hello, world!"}
+
+# lambda_handler = Mangum(app)

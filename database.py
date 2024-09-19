@@ -62,26 +62,11 @@ question_tables = {
                     MatchingQuestions: MatchingQuestionsInLesson,
                   }
 
-if os.environ.get("PROD", "False") == "True":
-    USERNAME = os.environ['DB_USER']
-    PASSWORD = os.environ['DB_PASS']
-    ENDPOINT = os.environ['DB_ENDPOINT']
-    PORT = os.environ['DB_PORT']
-
-    if os.environ.get("TEST_DB", "False") == "True":
-        NAME = os.environ['TEST_DB_NAME']
-    else:
-        NAME = os.environ['DB_NAME']
-
-    db_uri = f"mysql+pymysql://{USERNAME}:{PASSWORD}@{ENDPOINT}:{PORT}/{NAME}"
-
-    engine = create_engine(db_uri)
-else: 
-    engine = create_engine(
-        "sqlite:///testing_db.db",
-        echo=False,
-        connect_args={"check_same_thread": False,},
-    )
+engine = create_engine(
+    "sqlite:///testing_db.db",
+    echo=False,
+    connect_args={"check_same_thread": False,},
+)
 
 
 def create_database():
