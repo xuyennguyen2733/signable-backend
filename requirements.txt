@@ -6,4 +6,4 @@ sqlmodel==0.0.22
 passlib==1.7.4
 python-multipart==0.0.9
 bcrypt==4.2.0
-pytdantic==2.9.2
+pydantic==2.9.2

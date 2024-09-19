@@ -1,0 +1,61 @@
+1. Install Docker
+
+2. In your project create a requirements.txt file that includes all python packages you need to install for your project (make sure uvicorn is part of it)
+
+3. Create a file named Dockerfile, with the content
+
+    FROM python:3.11
+
+    WORKDIR /code
+
+    COPY ./requirements.txt /code/requirements.txt
+
+    RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
+
+    COPY ./ /code/
+
+    CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
+
+4. Adjust python version and other part accordingly
+
+5. In the terminal,
+
+RUN docker build -t [give-any-name] .
+
+6. In azure, create a resource group
+
+- Resource group name need to be unique
+- Choose a location closest to you
+- Choose the free tier subscription or any available subscription you want
+- Just review and create (ignore name : value)
+
+
+7. Create a container registry
+8. Once container registry is created, go to resource, and navigate under settings > Access keys
+9. Enable admin user
+10. You will need to use some of the values in this page for this step.
+
+- In the terminal
+
+RUN docker login [login-server] -u [username] -p [password]
+
+- Then
+
+RUN docker build -t [login-server]/[username]:[give-tag-name] .
+
+|_ (example) docker build -t rlsignable.azurecr.io/rlsignable:build-tag-1 .
+
+- Finally
+
+RUN docker push [login-server]/[username]:[tag-name-given]
+
+11. Back to Azure, in your container registry, navigate Services > Repositories
+
+=> you should be able to see what you just pushed
+
+12. Create container instances
+
+- Make sure Image source is Azure Container Registry
+- Select the image and image tag you just pushed
+
+13. Once the instace is deployed, go to the IP address provided for your backend
