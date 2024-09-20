@@ -36,6 +36,7 @@ app.add_middleware(
     allow_origins=[
        "http://localhost:5173",
        "http://localhost:5174",
+       "https://signable-ffg0eegcfngdgubn.westus2-01.azurewebsites.net/",
        "https://tv",
        "https://www.tv",
     ],

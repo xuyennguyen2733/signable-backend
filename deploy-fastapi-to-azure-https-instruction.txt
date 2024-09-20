@@ -1,0 +1,16 @@
+1. In Azure, Create a resource group
+2. In Azure,Create a Web app
+3. Under the web app's settings, go to configuration
+4. Enter the following for the startup command
+
+gunicorn -w 2 -k uvicorn.workers.UvicornWorker main:app
+
+- Save it
+- Note that whether the app name in the command is main:app, or app.main:app, or any-folder.main:app depends on where you store your main.py file
+5. Under the web app's deployment, go to Deployment Center
+6. Select the github repo and the branch which you want to deployed
+7. Choose use User Identity
+8. Save and wait
+9. Once done, go to your the provided url to verify
+
+https://signable-fastapi-d0hkhvazdpchc9cz.westus2-01.azurewebsites.net/
