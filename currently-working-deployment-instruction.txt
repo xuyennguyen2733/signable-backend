@@ -1,5 +1,7 @@
+NOTE: You can deploy both your frontend and backend to the same resource group
+
 1. In Azure, Create a resource group
-2. In Azure,Create a Web app
+2. In Azure, Create a Web app, choose code for "publish"
 3. Under the web app's settings, go to configuration
 4. Enter the following for the startup command
 
@@ -14,3 +16,5 @@ gunicorn -w 2 -k uvicorn.workers.UvicornWorker main:app
 9. Once done, go to your the provided url to verify
 
 https://signable-fastapi-d0hkhvazdpchc9cz.westus2-01.azurewebsites.net/
+
+10. To redeploy, go to azure where the web app is, under Deployment>Deployment Center, Click Sync on the vertical menu
